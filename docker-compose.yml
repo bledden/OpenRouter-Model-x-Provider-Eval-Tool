@@ -1,0 +1,92 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: eval-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-eval}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-evalpass}
+      POSTGRES_DB: ${POSTGRES_DB:-eval_db}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-eval} -d ${POSTGRES_DB:-eval_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - eval-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: eval-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - eval-network
+    profiles:
+      - full  # Only start with --profile full
+
+  benchmark-service:
+    build:
+      context: ./benchmark-service
+      dockerfile: Dockerfile
+    container_name: eval-benchmark-service
+    # Run as root to access Docker socket (required for SWE-bench, cybench, etc.)
+    user: root
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-eval}:${POSTGRES_PASSWORD:-evalpass}@postgres:5432/${POSTGRES_DB:-eval_db}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+    ports:
+      - "${BENCHMARK_SERVICE_PORT:-8000}:8000"
+    volumes:
+      # Mount Docker socket for SWE-bench and other benchmarks that need Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - eval-network
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: eval-dashboard
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-eval}:${POSTGRES_PASSWORD:-evalpass}@postgres:5432/${POSTGRES_DB:-eval_db}
+      NEXT_PUBLIC_EVAL_SERVICE_URL: http://benchmark-service:8000
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+    ports:
+      - "${DASHBOARD_PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      benchmark-service:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - eval-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  eval-network:
+    driver: bridge

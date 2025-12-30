@@ -1,0 +1,41 @@
+# FastAPI server
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-dotenv>=1.0.0
+
+# Inspect AI for evaluations
+inspect-ai>=0.3.0
+inspect-evals>=0.3.0
+openai>=1.0.0
+
+# HTTP client for OpenRouter
+httpx>=0.26.0
+
+# SSE for streaming responses
+sse-starlette>=1.8.0
+
+# Async support
+anyio>=4.2.0
+
+# CLI dependencies
+rich>=13.7.0
+click>=8.1.0
+
+# ============================================================
+# OPTIONAL: Benchmark-specific dependencies
+# ============================================================
+# Some benchmarks require additional packages. Uncomment as needed.
+#
+# SWE-bench (requires Python 3.11+, Docker):
+# swebench
+#
+# MLE-bench (requires Python 3.11+):
+# mlebench
+#
+# GAIA (web browsing tasks):
+# playwright
+#
+# For all optional dependencies, you can also install via:
+# pip install inspect-evals[swe_bench]
+# pip install inspect-evals[gaia]
+# etc.

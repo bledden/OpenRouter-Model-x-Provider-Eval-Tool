@@ -1,0 +1,31 @@
+{
+  "name": "provider-eval",
+  "version": "1.0.0",
+  "description": "Run MMLU evaluations across OpenRouter providers",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "provider-eval": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest"
+  },
+  "keywords": ["openrouter", "llm", "evaluation", "mmlu"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2",
+    "vitest": "^2.1.8"
+  }
+}
