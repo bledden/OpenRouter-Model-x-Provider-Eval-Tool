@@ -382,11 +382,11 @@ AVAILABLE_BENCHMARKS = {
     },
 
     # ============== SAFEGUARDS (17) ==============
-    "ahb": {
-        "name": "AHB",
-        "description": "Adversarial Helpfulness Benchmark",
+    "anima": {
+        "name": "ANIMA",
+        "description": "ANIMA — measures whether models consider animal welfare in situations that may cause harm.",
         "category": "safety",
-        "inspect_task": "inspect_evals/ahb",
+        "inspect_task": "inspect_evals/anima",
     },
     "abstention_bench": {
         "name": "Abstention Bench",
