@@ -244,7 +244,7 @@ export const availableBenchmarks = [
   { id: "wmdp", name: "WMDP", category: "Safety", description: "Weapons of Mass Destruction Proxy", capabilities: ["chat"] },
   { id: "agentharm", name: "AgentHarm", category: "Safety", description: "Agent harm evaluation", capabilities: ["chat"] },
   { id: "agentdojo", name: "AgentDojo", category: "Safety", description: "Agent safety evaluation", capabilities: ["chat"] },
-  { id: "ahb", name: "AHB", category: "Safety", description: "Agent harm benchmark", capabilities: ["chat"] },
+  { id: "anima", name: "ANIMA", category: "Safety", description: "ANIMA — animal-welfare safety benchmark", capabilities: ["chat"] },
   { id: "abstention_bench", name: "AbstentionBench", category: "Safety", description: "Appropriate abstention evaluation", capabilities: ["chat"] },
   { id: "fortress", name: "Fortress", category: "Safety", description: "Adversarial robustness benchmark", capabilities: ["chat"] },
   { id: "lab_bench", name: "LabBench", category: "Safety", description: "Laboratory safety benchmark", capabilities: ["chat"] },

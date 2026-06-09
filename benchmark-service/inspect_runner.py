@@ -167,7 +167,7 @@ SUPPORTED_BENCHMARKS = {
     "sec_qa": "inspect_evals/sec_qa",
 
     # ============== SAFEGUARDS ==============
-    "ahb": "inspect_evals/ahb",
+    "anima": "inspect_evals/anima",
     "abstention_bench": "inspect_evals/abstention_bench",
     "agentdojo": "inspect_evals/agentdojo",
     "agentharm": "inspect_evals/agentharm",

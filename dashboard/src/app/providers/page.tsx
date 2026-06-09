@@ -198,7 +198,7 @@ function ProvidersPageContent() {
       mmmu: "vision", docvqa: "vision", mmiu: "vision", vstar_bench: "vision", zerobench: "vision",
       // Safety
       toxigen: "safety", xstest: "safety", strong_reject: "safety", wmdp: "safety",
-      agentharm: "safety", agentdojo: "safety", ahb: "safety", abstention_bench: "safety",
+      agentharm: "safety", agentdojo: "safety", anima: "safety", abstention_bench: "safety",
       fortress: "safety", lab_bench: "safety", mask: "safety", make_me_pay: "safety",
       makemesay: "safety", mind2web_sc: "safety", coconot: "safety", b3: "safety",
       // Bias
